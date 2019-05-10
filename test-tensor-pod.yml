@@ -1,0 +1,28 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: nvidia-tensor-pod
+spec:
+  containers:
+  - name: nvidia
+    image: 'tensorflow/tensorflow:latest-gpu'
+    args: 
+    - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/nvidia/lib64/
+    - PATH=$PATH:/usr/bin/nvidia
+    resources:
+      limits:
+        nvidia.com/gpu: 1
+    volumeMounts:
+    - mountPath: /usr/bin/nvidia
+      name: binaries
+    - mountPath: /usr/nvidia/lib64
+      name: libraries
+  restartPolicy: Never
+  volumes:
+  - name: binaries
+    hostPath:
+      path: /opt/nvidia/bin
+  - name: libraries
+    hostPath:
+      path: /opt/nvidia/lib64
+
