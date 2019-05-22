@@ -6,9 +6,8 @@ spec:
   containers:
   - name: nvidia
     image: 'tensorflow/tensorflow:latest-gpu'
-    args: 
-    - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/nvidia/lib64/
-    - PATH=$PATH:/usr/bin/nvidia
+    command: ["sleep"]
+    args: ["100000"]
     resources:
       limits:
         nvidia.com/gpu: 1
